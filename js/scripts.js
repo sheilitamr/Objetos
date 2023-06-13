@@ -119,6 +119,33 @@ const fillObject = phrase => {
   newPhrase = newPhrase.replaceAll(/[uúUÚ]/g, 5);
 
   //----
+  const alphabet = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z'
+  ];
   const consonants = [
     'b',
     'c',
@@ -143,12 +170,23 @@ const fillObject = phrase => {
     'y',
     'z'
   ];
+  let secretCode = '';
   for (let i = 0; i < newPhrase.length; i++) {
-    if (consonants.includes(newPhrase[i])) {
-      const index = consonants.indexOf(newPhrase[i]);
-      console.log(index);
+    if (consonants.includes(newPhrase[i].toLowerCase())) {
+      let index = consonants.indexOf(newPhrase[i].toLowerCase());
+      if (index === 0) {
+        index = consonants.length - 1;
+      }
+      secretCode += consonants[index - 1];
+    } else if (newPhrase[i] === ' ') {
+      letterRandom = alphabet[Math.floor(Math.random() * alphabet.length)];
+      secretCode += letterRandom;
+    } else {
+      secretCode += newPhrase[i];
     }
   }
+
+  data2.sixthFloor.secretCode = secretCode;
 };
 fillObject('Si no estudias acabarás como Enrique');
-console.table(data2);
+console.table(data2.sixthFloor);
